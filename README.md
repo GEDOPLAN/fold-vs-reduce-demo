@@ -1,6 +1,6 @@
 # fold vs reduce
 
-Das Projekt beinhaltet Beispielcode um die Unterschiede der Stream-Operation reduce und dem Stream-Gatherer fold aufzuzeigen.
+Das Projekt beinhaltet Beispielcode, um die Unterschiede zwischen der Stream-Operation reduce und dem Stream-Gatherer fold aufzuzeigen.
 
 Weiteres im Blog-Beitrag auf https://gedoplan.de/javablog/.
 

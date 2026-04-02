@@ -1,25 +1,33 @@
 void main() {
   IO.println("# SimpleReduce");
   simpleReduce(Stream.of("A", "B", "C", "D", "E", "F", "G"));
+  IO.println("");
   IO.println("# ReduceWithCombiner");
   reduceWithCombiner(Stream.of('A', 'B', 'C', 'D', 'E', 'F', 'G'));
-  IO.println("# Fold");
-  fold(Stream.of('A', 'B', 'C', 'D', 'E', 'F', 'G'));
+  IO.println("");
   IO.println("# SimpleReduce (parallel)");
   simpleReduce(Stream.of("A", "B", "C", "D", "E", "F", "G").parallel());
+  IO.println("");
   IO.println("# ReduceWithCombiner (parallel)");
   reduceWithCombiner(Stream.of('A', 'B', 'C', 'D', 'E', 'F', 'G').parallel());
+  IO.println("");
+  IO.println("# Fold");
+  fold(Stream.of('A', 'B', 'C', 'D', 'E', 'F', 'G'));
+  IO.println("");
   IO.println("# Fold (parallel)");
   fold(Stream.of('A', 'B', 'C', 'D', 'E', 'F', 'G').parallel());
-
-  IO.println("###");
+  IO.println("");
+  IO.println("");
   IO.println("# Average sensor values");
   IO.println("# Reduce");
   weightedAverageReduce(Stream.of(500.0, 750.0, 900.0, 1200.0, 1100.0, 950.0));
+  IO.println("");
   IO.println("# Reduce (parallel)");
   weightedAverageReduce(Stream.of(500.0, 750.0, 900.0, 1200.0, 1100.0, 950.0).parallel());
+  IO.println("");
   IO.println("# Fold");
   weightedAverageFold(Stream.of(500.0, 750.0, 900.0, 1200.0, 1100.0, 950.0));
+  IO.println("");
   IO.println("# Fold (parallel)");
   weightedAverageFold(Stream.of(500.0, 750.0, 900.0, 1200.0, 1100.0, 950.0).parallel());
 }
@@ -34,8 +42,8 @@ void simpleReduce(Stream<String> stringStream) {
   IO.println(reduceResult);
 }
 
-void reduceWithCombiner(Stream<Character> stringStream) {
-  String reduceResult = stringStream.reduce(
+void reduceWithCombiner(Stream<Character> characterStream) {
+  String reduceResult = characterStream.reduce(
       "",
       (a, b) -> {
         IO.println("Acc: %s + %s = %s (Thread %s)".formatted(a, b, a + b, Thread.currentThread().getName()));
@@ -55,10 +63,10 @@ void fold(Stream<Character> stringStream) {
         return a + b;
       })
   ).findFirst();
-  if (foldResult.isPresent()) {
-    IO.println(foldResult.get());
-  } else {
-    IO.println("fold result not present");  }
+  foldResult.ifPresentOrElse(
+      res ->  IO.println(res),
+      () -> IO.println("fold result not present")
+  );
 }
 
 void weightedAverageReduce(Stream<Double> sensorValues) {
